@@ -1,28 +1,25 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Text, View, StyleSheet, SafeAreaView, Button} from "react-native";
 import SignUpForm from "../components/SignUpForm";
-import Spacer from "../components/Spacer";
 import NavLink from '../components/NavLink';
-
+import {Context as AuthContext} from '../context/AuthContext';
+import {NavigationEvents} from '@react-navigation/compat';
 
 const SignUpScreen = ({navigation}) => {
-
+    const { state, signup, clearErrorMessage } = useContext(AuthContext);
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.container}>
+                <NavigationEvents onWillBlur = {clearErrorMessage} />
                 <View style={styles.container}>
                     <SignUpForm
+                        navigation={navigation}
                         headerText=" SIGN UP "
-                        // errorMessage={state.errorMessage}
+                        errorMessage={state.errorMessage}
                         submitButtonText=" SignUp "
-                        // onSubmit={signup}
+                        onSubmit={signup}
                     />
                 </View>
-                <Spacer/>
-                <Button
-                    title = " Loading Screen "
-                    onPress = {() => navigation.navigate('SignIn')}
-                />
                 <View style={styles.linkContainer}>
                     <NavLink
                         routeName = {'SignIn'}
@@ -39,8 +36,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     linkContainer: {
-        // justifyContent: 'center',
-        // alignContent: 'center',
+        marginBottom: 20,
         alignItems: 'center'
     },
 });

@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {View, StyleSheet, SafeAreaView, StatusBar, TouchableWithoutFeedback, KeyboardAvoidingView} from 'react-native';
 import {Text, Button, Input, Image} from 'react-native-elements';
 import Spacer from './Spacer';
 
-const SignUpForm = ({headerText, errorMessage, onSubmit, submitButtonText}) => {
+const SignUpForm = ({ navigation, headerText, errorMessage, onSubmit, submitButtonText}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [phone, setPhone] = useState('');
@@ -128,6 +128,7 @@ const SignUpForm = ({headerText, errorMessage, onSubmit, submitButtonText}) => {
                                 value={phone}
                                 onChangeText={setPhone}
                                 autoCapitalize="none"
+                                returnKeyType={"done"}
                                 autoCorrect={false}
                                 labelStyle={{
                                     color: 'black',
@@ -159,8 +160,8 @@ const SignUpForm = ({headerText, errorMessage, onSubmit, submitButtonText}) => {
                                 buttonStyle={{
                                     borderRadius: 27
                                 }}
-                                // onPress={() => onSubmit({email, password})}
-                                onPress={() => navigation.navigate('SignIn')}
+                                onPress={() => onSubmit({email, password})}
+                                // onPress={() => navigation.navigate('SignIn')}
                             />
                         </View>
                     </View>

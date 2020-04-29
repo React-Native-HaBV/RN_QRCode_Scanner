@@ -12,7 +12,7 @@ import {Text, Button, Input, Image} from 'react-native-elements';
 import Spacer from './Spacer';
 
 
-const SignInForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) => {
+const SignInForm = ({ navigation, headerText, errorMessage, onSubmit, submitButtonText }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -33,7 +33,7 @@ const SignInForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =>
                         </View>
                         <View style={styles.inforContainer}>
                             <Input
-                                placeholder="Email"
+                                placeholder="Enter your email"
                                 label="Email"
                                 keyboardType={"email-address"}
                                 returnKeyType={"next"}
@@ -59,9 +59,10 @@ const SignInForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =>
                             />
                             <Spacer/>
                             <Input
-                                placeholder="Password"
+                                placeholder="Enter your password"
                                 label="Password"
                                 returnKeyType={"done"}
+                                onSubmitEditing={Keyboard.dismiss}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 secureTextEntry={true}
@@ -97,11 +98,9 @@ const SignInForm = ({ headerText, errorMessage, onSubmit, submitButtonText }) =>
                                 buttonStyle={{
                                     borderRadius: 27,
                                 }}
-                                // onPress={() => onSubmit({email, password})}
-                                onPress={() => navigation.navigate('Home')}
+                                onPress={() => onSubmit({email, password})}
                             />
                         </View>
-
                     </View>
                 </TouchableWithoutFeedback>
             </KeyboardAvoidingView>

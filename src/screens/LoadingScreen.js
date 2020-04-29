@@ -1,29 +1,31 @@
-import React from "react";
-import {Text, View, StyleSheet, Button} from "react-native";
-import NavLink from '../components/NavLink';
-
+import React, {useEffect, useContext, useState} from "react";
+import {Text, View, Button, StyleSheet, SafeAreaView, ActivityIndicator} from "react-native";
+import Spacer from "../components/Spacer";
+import { Context as AuthContext } from '../context/AuthContext';
+import auth, {firebase} from "@react-native-firebase/auth";
 
 const LoadingScreen = ({navigation}) => {
+    const { tryLocalSignin } = useContext(AuthContext);
+
+    useEffect(() => {
+        tryLocalSignin();
+    }, []);
 
     return (
-        <View style={styles.container}>
-            <Text>
-                Loading Screen
-            </Text>
-            <Button
-                title = " Go To SignUp Screen "
-                onPress = {() => navigation.navigate('SignUp')}
-            />
-            <NavLink
-                routeName = 'SignIn'
-                text = 'Go To Sign In Screen'
-            />
-        </View>
+        <SafeAreaView style={styles.container}>
+            <View style={styles.container}>
+                <Text> Loading </Text>
+                <Spacer/>
+                <ActivityIndicator size={"large"}/>
+            </View>
+        </SafeAreaView>
     );
 };
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
 
 });
